@@ -2,10 +2,12 @@ package com.example.sm.problem3;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 // need something here
-            } catch (InterruptedException e) { }
+                //모든 쓰레드가 완료될때까지 기다려야 하는데 하는방법을 모르겠음
+                //모든 쓰레드가 완료되기 전에 밑에 정렬이되면 정렬이 제대로안될수 있음.
+
+            } catch (Exception e) { }
         }
 
         manager.sort();
@@ -51,7 +56,16 @@ class CustomerThread extends Thread{
     CustomerThread(Customer customer){
         this.customer = customer;
     }
-    // need something here
+
+    @Override
+    public void run() {
+        super.run();
+        for(int i =0;i<10;i++){
+            customer.work();
+        }
+
+    }
+
 }
 
 abstract class Person{
@@ -70,6 +84,15 @@ class Customer extends Person{
         this.name = name;
     }
 
+    @Override
+    void work() {
+        Random random = new Random();
+        int a = Math.abs(random.nextInt()%1001);
+        Log.d("test", a+"");
+        spent_money+=a;
+        money-=a;
+    }
+
     // need something here
 }
 
@@ -82,9 +105,18 @@ class Manager extends Person{
     }
 
     void sort(){ // 직접 소팅 알고리즘을 이용하여 코딩해야함. 자바 기본 정렬 메소드 이용시 감
-
+        ArrayList<Customer> a = new ArrayList<Customer>();
         // need something here
-
+        while (list.size()!=0) {
+            Customer customer = list.get(0);
+            for (int i = 1; i < list.size(); i++) {
+                if (customer.spent_money < list.get(i).spent_money) customer = list.get(i);
+            }
+            list.remove(customer);
+            a.add(customer);
+        }
+        list = a;
+        //효율 안좋은 정렬
     }
 
     @Override

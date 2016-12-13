@@ -42,10 +42,18 @@ public class MyBaseAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Customer customer = mData.get(position);
 
         // need something here
+        View v = mLayoutInflater.inflate(R.layout.list_view_item_layout, null);
+        TextView text_name = (TextView) v.findViewById(R.id.text_name);
+        TextView text_money = (TextView) v.findViewById(R.id.text_money);
 
-        return itemLayout;
+        text_name.setText(customer.name);
+        text_money.setText(customer.spent_money+"");
+
+
+        return v;
 
     }
 }

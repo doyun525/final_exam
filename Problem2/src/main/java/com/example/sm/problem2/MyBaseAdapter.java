@@ -37,6 +37,8 @@ public class MyBaseAdapter extends BaseAdapter implements AdapterView.OnItemClic
         edit_age.setText(age.toString());
         edit_salary.setText(salary.toString());
         this.selected_position = position;
+        ((MainActivity)mContext).setEmployee(selected_position);
+
     }
 
     @Override
@@ -67,5 +69,17 @@ public class MyBaseAdapter extends BaseAdapter implements AdapterView.OnItemClic
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // need something here
+        Employee employee = mData.get(position);
+
+        View v = mLayoutInflater.inflate(R.layout.list_view_item_layout, null);
+        TextView text_employeeName = (TextView) v.findViewById(R.id.text_employeeName);
+        TextView text_employeeAge = (TextView) v.findViewById(R.id.text_employeeAge);
+        TextView text_employeeSalary = (TextView)v.findViewById(R.id.text_employeeSalary);
+
+        text_employeeName.setText(employee.getName());
+        text_employeeAge.setText(employee.getAge()+"");
+        text_employeeSalary.setText(employee.getSalary()+"");
+
+        return v;
     }
 }

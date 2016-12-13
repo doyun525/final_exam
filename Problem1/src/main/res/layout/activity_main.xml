@@ -60,8 +60,9 @@
     <TextView
         android:text="Values"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/text_selectedData"
+        android:lines="10"
         android:layout_weight="1"
         android:textSize="18sp" />
 
